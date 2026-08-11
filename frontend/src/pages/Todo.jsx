@@ -10,10 +10,12 @@ function Todo() {
     const [username, setUsername] = useState("");
     const navigate = useNavigate();
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
         const token = localStorage.getItem("token");
     
-        fetch("http://127.0.0.1:5000/tasks", {
+        fetch(`${API_URL}/tasks`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -33,12 +35,12 @@ function Todo() {
                 localStorage.removeItem("token");
                 navigate("/");
             });
-    }, [navigate]);
+    }, [navigate, API_URL]);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
 
-        fetch("http://127.0.0.1:5000/me", {
+        fetch(`${API_URL}/me`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -57,12 +59,12 @@ function Todo() {
                 localStorage.removeItem("token");
                 navigate("/");
             });
-    }, [navigate]);
+    }, [navigate, API_URL]);
 
     function deleteTask(id) {
         const token = localStorage.getItem("token");
 
-        fetch(`http://127.0.0.1:5000/tasks/${id}`, {
+        fetch(`${API_URL}/tasks/${id}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`
@@ -99,7 +101,7 @@ function Todo() {
 
             const token = localStorage.getItem("token");
 
-            fetch(`http://127.0.0.1:5000/tasks/${editingId}`, {
+            fetch(`${API_URL}/tasks/${editingId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -142,7 +144,7 @@ function Todo() {
 
         const token = localStorage.getItem("token");
 
-        fetch("http://127.0.0.1:5000/tasks", {
+        fetch(`${API_URL}/tasks`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -177,7 +179,7 @@ function Todo() {
 
         const token = localStorage.getItem("token");
 
-        fetch(`http://127.0.0.1:5000/tasks/${task.id}`, {
+        fetch(`${API_URL}/tasks/${task.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

@@ -7,6 +7,8 @@ function Register() {
 
     const navigate = useNavigate();
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     function register() {
 
         if (username.trim() === "") {
@@ -18,8 +20,8 @@ function Register() {
             alert("パスワードは8文字以上にしてください");
             return;
         }
-        
-        fetch("http://127.0.0.1:5000/register", {
+
+        fetch(`${API_URL}/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

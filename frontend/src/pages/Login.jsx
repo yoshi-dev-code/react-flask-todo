@@ -7,13 +7,15 @@ function Login() {
 
     const navigate = useNavigate();
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     function login() {
         if (username.trim() === "" || password.trim() === "") {
             alert("ユーザー名とパスワードを入力してください");
             return;
         }
 
-        fetch("http://127.0.0.1:5000/login", {
+        fetch(`${API_URL}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
