@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import TaskList from "../components/Tasklist";
+import TaskList from "../components/TaskList";
 import TaskInput from "../components/TaskInput";
 import { useEffect, useState } from "react";
 
