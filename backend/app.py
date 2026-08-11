@@ -31,8 +31,17 @@ def init_db():
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             text TEXT NOT NULL,
             completed INTEGER NOT NULL DEFAULT 0
+            user_id INTEGER
             )
     """)
+    
+    cursor.execute("PRAGMA table_info(tasks)")
+    columns = [column[1] for column in cursor.fetchall()]
+    
+    if "user_id" not in columns:
+        cursor.execute(
+            "ALTER TABLE tasks ADD COLUMN user_id INTEGER"
+        )
     
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS users(
