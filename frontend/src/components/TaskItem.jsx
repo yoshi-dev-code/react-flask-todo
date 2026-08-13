@@ -1,4 +1,6 @@
 function TaskItem(props) {
+    const isProcessing = props.processingId === props.task.id;
+    
     return (
         <li className="task-item">
             <span
@@ -15,6 +17,7 @@ function TaskItem(props) {
                 <button
                     className="complete-button"
                     onClick={() => props.toggleTask(props.task)}
+                    disabled={isProcessing}
                 >
                     {props.task.completed ? "戻す" : "完了"}
                 </button>
@@ -25,6 +28,7 @@ function TaskItem(props) {
                         props.setEditingId(props.task.id);
                         props.setText(props.task.text);
                     }}
+                    disabled={isProcessing}
                 >
                     編集
                 </button>
@@ -32,6 +36,7 @@ function TaskItem(props) {
                 <button
                     className="delete-button"
                     onClick={() => props.deleteTask(props.task.id)}
+                    disabled={isProcessing}
                 >
                     削除
                 </button>

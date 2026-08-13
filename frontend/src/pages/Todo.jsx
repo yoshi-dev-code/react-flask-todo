@@ -8,6 +8,10 @@ function Todo() {
     const [text, setText] = useState("");
     const [editingId, setEditingId] = useState(null);
     const [username, setUsername] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [processingId, setProcessingId] = useState(null);
+
     const navigate = useNavigate();
 
     const API_URL = import.meta.env.VITE_API_URL;
@@ -62,6 +66,9 @@ function Todo() {
     }, [navigate, API_URL]);
 
     function deleteTask(id) {
+        setError("");
+        setProcessingId(id);
+
         const token = localStorage.getItem("token");
 
         fetch(`${API_URL}/tasks/${id}`, {
@@ -82,8 +89,11 @@ function Todo() {
                     tasks.filter((task) => task.id !== id)
                 );
             })
-            .catch((error) => {
-                alert(error.message);
+            .catch(() => {
+                setError("削除に失敗しました");
+            })
+            .finally(() => {
+            setProcessingId(null);
             });
     }
 
@@ -91,6 +101,9 @@ function Todo() {
         if (text.trim() === "") {
             return;
         }
+
+        setError("");
+        setLoading(true);
 
         const cleanText = text.trim();
 
@@ -136,7 +149,10 @@ function Todo() {
                     setText("");
                 })
                 .catch((error) => {
-                    alert(error.message);
+                    setError("編集に失敗しました");
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
 
             return;
@@ -167,11 +183,16 @@ function Todo() {
                 setText("");
             })
             .catch((error) => {
-                alert(error.message);
+                setError("追加に失敗しました");
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }
 
     function toggleTask(task) {
+        setError("");
+
         const updatedTask = {
             ...task,
             completed: !task.completed
@@ -206,7 +227,7 @@ function Todo() {
                 setTasks(newTasks);
             })
             .catch((error) => {
-                alert(error.message);
+                setError("完了状態の更新に失敗しました");
             });
     }
 
@@ -232,11 +253,18 @@ function Todo() {
                     </button>
                 </div>
 
+                {error && (
+                    <p className="error-message">
+                        {error}
+                    </p>
+                )}
+
                 <TaskInput
                     text={text}
                     setText={setText}
                     addTask={addTask}
                     editingId={editingId}
+                    loading={loading}
                 />
 
                 <TaskList
@@ -245,6 +273,7 @@ function Todo() {
                     deleteTask={deleteTask}
                     setEditingId={setEditingId}
                     setText={setText}
+                    processingId={processingId}
                 />
             </div>
         </div>

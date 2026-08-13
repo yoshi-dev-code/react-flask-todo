@@ -1,8 +1,13 @@
 import TaskItem from "./TaskItem";
 
 function TaskList(props) {
+
+    if (props.tasks.length === 0) {
+        return <p className="empty-message">タスクはまだありません</p>
+    }
+
     return (
-        <ul>
+        <ul className="task-list">
             {props.tasks.map((task) => (
                 <TaskItem
                     key={task.id}
@@ -11,6 +16,7 @@ function TaskList(props) {
                     deleteTask={props.deleteTask}
                     setEditingId={props.setEditingId}
                     setText={props.setText}
+                    processingId={props.processingId}
                 />
             ))}
         </ul>

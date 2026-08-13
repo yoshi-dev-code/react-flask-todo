@@ -12,8 +12,17 @@ function TaskInput(props) {
             <button
                 className="add-button"
                 onClick={props.addTask}
+                disabled={props.loading}
             >
-                {props.editingId !== null ? "更新" : "追加"}
+
+                {props.loading
+                    ? props.editingId !== null
+                        ? "更新中..."
+                        : "追加中..."
+                    : props.editingId !== null
+                        ? "更新"
+                        : "追加"
+                }
             </button>
         </div>
     );

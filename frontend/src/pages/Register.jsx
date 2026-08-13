@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const navigate = useNavigate();
 
@@ -12,14 +14,17 @@ function Register() {
     function register() {
 
         if (username.trim() === "") {
-            alert("ユーザー名を入力してください");
+            setError("ユーザー名を入力してください");
             return;
         }
 
         if (password.length < 8) {
-            alert("パスワードは8文字以上にしてください");
+            setError("パスワードは8文字以上にしてください");
             return;
         }
+
+        setError("");
+        setLoading(true);
 
         fetch(`${API_URL}/register`, {
             method: "POST",
@@ -33,11 +38,17 @@ function Register() {
         })
             .then((response) => response.json())
             .then((data) => {
-                alert(data.message);
-
                 if (data.message === "ユーザー登録成功") {
                     navigate("/");
+                } else {
+                    setError(data.message);
                 }
+            })
+            .catch(() => {
+                setError("通信に失敗しました");
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }
 
@@ -66,11 +77,18 @@ function Register() {
                     onChange={(event) => setPassword(event.target.value)}
                 />
 
+                {error && (
+                    <p className="error-message">
+                        {error}
+                    </p>
+                )}
+
                 <button
                     className="auth-button"
                     onClick={register}
+                    disabled={loading}
                 >
-                    登録
+                    {loading ? "登録中..." : "登録"}
                 </button>
 
                 <button

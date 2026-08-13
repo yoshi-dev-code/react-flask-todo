@@ -188,3 +188,103 @@
   color: #4f46e5;
   cursor: pointer;
 }
+
+.error-message {
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fee2e2;
+  color: #b91c1c;
+  font-size: 14px;
+  text-align: left;
+}
+
+@media (max-width: 600px) {
+
+  .todo-page {
+    padding: 20px 12px;
+  }
+
+  .todo-card {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .todo-header {
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .todo-header h1 {
+    font-size: 26px;
+  }
+
+  .logout-button {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .task-input {
+    flex-direction: column;
+  }
+
+  .task-input-field {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .add-button {
+    width: 100%;
+  }
+
+  .task-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .task-text {
+    width: 100%;
+  }
+
+  .task-actions {
+    width: 100%;
+  }
+
+  .complete-button,
+  .edit-button,
+  .delete-button {
+    flex: 1;
+  }
+
+  .auth-card {
+    padding: 24px 18px;
+  }
+
+  .auth-card h1 {
+    font-size: 26px;
+  }
+
+  .auth-input {
+    box-sizing: border-box;
+  }
+
+  .task-list {
+    padding: 0;
+    margin: 0;
+  }
+}.empty-message {
+  text-align: center;
+  color: #888;
+  padding: 24px 0;
+}
+
+.complete-button:disabled,
+.edit-button:disabled,
+.delete-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

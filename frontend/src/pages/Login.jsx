@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const [error, setError] = useState("");
 
     const navigate = useNavigate();
 
@@ -14,6 +17,9 @@ function Login() {
             alert("ユーザー名とパスワードを入力してください");
             return;
         }
+
+        setError("");
+        setLoading(true);
 
         fetch(`${API_URL}/login`, {
             method: "POST",
@@ -38,8 +44,14 @@ function Login() {
 
                     navigate("/todo");
                 } else {
-                    alert(data.message);
+                    setError(data.message);
                 }
+            })
+            .catch(() => {
+                setError("通信に失敗しました");
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }
 
@@ -68,11 +80,18 @@ function Login() {
                     onChange={(event) => setPassword(event.target.value)}
                 />
 
+                {error && (
+                    <p className="error-message">
+                        {error}
+                    </p>
+                )}
+
                 <button
                     className="auth-button"
                     onClick={login}
+                    disabled={loading}
                 >
-                    ログイン
+                    {loading ? "ログイン中..." : "ログイン"}
                 </button>
 
                 <button
