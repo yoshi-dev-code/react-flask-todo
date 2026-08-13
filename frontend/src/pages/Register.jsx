@@ -42,26 +42,44 @@ function Register() {
     }
 
     return (
-        <div>
-            <h1>新規登録</h1>
+        <div className="auth-page">
+            <div className="auth-card">
+                <h1>新規登録</h1>
 
-            <input
-                type="text"
-                placeholder="ユーザー名"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-            />
+                <p className="auth-subtitle">
+                    アカウントを作成
+                </p>
 
-            <input
-                type="password"
-                placeholder="パスワード"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-            />
+                <input
+                    className="auth-input"
+                    type="text"
+                    placeholder="ユーザー名"
+                    value={username}
+                    onChange={(event) => setUsername(event.target.value)}
+                />
 
-            <button onClick={register}>
-                登録
-            </button>
+                <input
+                    className="auth-input"
+                    type="password"
+                    placeholder="パスワード（8文字以上）"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                />
+
+                <button
+                    className="auth-button"
+                    onClick={register}
+                >
+                    登録
+                </button>
+
+                <button
+                    className="auth-link-button"
+                    onClick={() => navigate("/")}
+                >
+                    ログイン画面に戻る
+                </button>
+            </div>
         </div>
     );
 }

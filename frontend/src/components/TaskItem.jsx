@@ -1,30 +1,41 @@
 function TaskItem(props) {
     return (
-        <li
-            style={{
-                textDecoration: props.task.completed
-                    ? "line-through"
-                    : "none"
-            }}
-        >
-            {props.task.text}
-
-            <button onClick={() => props.toggleTask(props.task)}>
-                完了
-            </button>
-
-            <button
-                onClick={() => {
-                    props.setEditingId(props.task.id);
-                    props.setText(props.task.text);
-                }}
+        <li className="task-item">
+            <span
+                className={
+                    props.task.completed
+                        ? "task-text completed"
+                        : "task-text"
+                }
             >
-                編集
-            </button>
+                {props.task.text}
+            </span>
 
-            <button onClick={() => props.deleteTask(props.task.id)}>
-                削除
-            </button>
+            <div className="task-actions">
+                <button
+                    className="complete-button"
+                    onClick={() => props.toggleTask(props.task)}
+                >
+                    {props.task.completed ? "戻す" : "完了"}
+                </button>
+
+                <button
+                    className="edit-button"
+                    onClick={() => {
+                        props.setEditingId(props.task.id);
+                        props.setText(props.task.text);
+                    }}
+                >
+                    編集
+                </button>
+
+                <button
+                    className="delete-button"
+                    onClick={() => props.deleteTask(props.task.id)}
+                >
+                    削除
+                </button>
+            </div>
         </li>
     );
 }

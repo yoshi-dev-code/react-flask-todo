@@ -216,31 +216,39 @@ function Todo() {
     }
 
     return (
-        <div>
-            <h1>Todoリスト</h1>
+        <div className="todo-page">
+            <div className="todo-card">
+                <div className="todo-header">
+                    <div>
+                        <h1>Todoリスト</h1>
+                        <p>ようこそ、{username}さん</p>
+                    </div>
 
-            <p>ようこそ、{username}さん</p>
+                    <button
+                        className="logout-button"
+                        onClick={logout}
+                    >
+                        ログアウト
+                    </button>
+                </div>
 
-            <button onClick={logout}>
-                ログアウト
-            </button>
+                <TaskInput
+                    text={text}
+                    setText={setText}
+                    addTask={addTask}
+                    editingId={editingId}
+                />
 
-            <TaskInput
-                text={text}
-                setText={setText}
-                addTask={addTask}
-                editingId={editingId}
-            />
-
-            <TaskList
-                tasks={tasks}
-                toggleTask={toggleTask}
-                deleteTask={deleteTask}
-                setEditingId={setEditingId}
-                setText={setText}
-            />
+                <TaskList
+                    tasks={tasks}
+                    toggleTask={toggleTask}
+                    deleteTask={deleteTask}
+                    setEditingId={setEditingId}
+                    setText={setText}
+                />
+            </div>
         </div>
-    );
+    );    
 }
 
 export default Todo;

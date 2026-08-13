@@ -44,26 +44,44 @@ function Login() {
     }
 
     return (
-        <div>
-            <h1>ログイン</h1>
+        <div className="auth-page">
+            <div className="auth-card">
+                <h1>ログイン</h1>
 
-            <input
-                type="text"
-                placeholder="ユーザー名"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-            />
+                <p className="auth-subtitle">
+                    Todoアプリへログイン
+                </p>
 
-            <input
-                type="password"
-                placeholder="パスワード"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-            />
+                <input
+                    className="auth-input"
+                    type="text"
+                    placeholder="ユーザー名"
+                    value={username}
+                    onChange={(event) => setUsername(event.target.value)}
+                />
 
-            <button onClick={login}>
-                ログイン
-            </button>
+                <input
+                    className="auth-input"
+                    type="password"
+                    placeholder="パスワード"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                />
+
+                <button
+                    className="auth-button"
+                    onClick={login}
+                >
+                    ログイン
+                </button>
+
+                <button
+                    className="auth-link-button"
+                    onClick={() => navigate("/register")}
+                >
+                    新規登録はこちら
+                </button>
+            </div>
         </div>
     );
 }
